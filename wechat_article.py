@@ -34,8 +34,8 @@ def get_wx_article(biz,uin,key,pass_ticket,appmsg_token,index,count=10):
         }
 
     r=requests.get(url=url, params=params, headers=headers)
+
     resp_json=r.json()
-    #print(resp_json)
     if resp_json.get('errmsg') == 'ok':
         # 是否还有分页数据，若没有更多数据则返回
         can_msg_continue=resp_json['can_msg_continue']
@@ -74,19 +74,19 @@ def get_wx_article(biz,uin,key,pass_ticket,appmsg_token,index,count=10):
 if __name__ == '__main__':
     # 参数通过抓包获得
     biz='MzAxNzMxNzgxMQ=='
-    uin='MjM0Mzg1NDYzMw=='
-    key='042612103d5cffa3fd7d8a034792df82951123faf07728cd610dfe5a431d875a988271719df92d5f5b1781a8a46e2d151b2c45ecb91924242557cf344300e2926a26a56684473c5083e5a39913f424a3'
-    pass_ticket='eMImAXKUGNIUUC2qZukCzqSuCQJRV0dvQpg3SBOKvmNmItFeSmOup0ECq28TC9Im'
-    appmsg_token='1038_OhYF6UygQ92pJqNM1gUepnshkd0sBoW68GeKdZPcL5Hn39IVK-kJ9bR9JNgvCco4WiYxxalsL_JIi-0M'
+    uin='MjM0Mzg1NDYzMw%3D%3D'
+    key='e2a6a5ccea4b8ce4ceb1e7ca61ade949ca2962200e70338f21b844ce7fc06ccdc7f74d15fd4415aaebe4a263e9c1fe961036ef9f6a7c0985bf9043c4977666fd7a92f8d14d0b750f11b84b173947fae1'
+    pass_ticket='QDbhJ0WvMxQceSKqddu3WaZHT3fp0mXLS%252BkiMOil2SPiMGL8yAOmPcrFYfyx1XHP'
+    appmsg_token='1038_3sBF5sWNlswPjJp68Gp8X0MKqJeox1wvY2CK8-bCn7ntUP7klsuqJYr-97s3nOntzQOTcVzIviSPS5R8'
     index=-1
     while 1:
         print(f'开始抓取公众号第{index + 1} 页文章.')
         flag=get_wx_article(biz,uin,key,pass_ticket,appmsg_token,index=index)
         # 防止和谐，暂停8秒
-
         time.sleep(8)
         index+=1
-        if not flag:
+        print(flag)
+        if flag==False:
             print('该公众号文章已全部抓取并且存入本地数据库')
             break
         print(f'..........准备抓取公众号第 {index+2} 页文章.')
